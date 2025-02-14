@@ -1,42 +1,105 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+@import url('https://fonts.googleapis.com/css2?family=Rubik+Glitch&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cute+Font&display=swap');
+
+::root{
+  --yellow: #ffbf18;
+  --dark-blue: #0a082f;
+  --blue: #4f48ec;
+  --bacground: #f6f1f1;
+  --black: #000;
+}
+*{
+  padding: 0;
+  margin: 0;
+  left: 0;
+  box-sizing: border-box;
+  overflow-x: hidden;
+  width: 100%;
+  height: 100%;
+}
+body{
+  width: 100%;
+  height: 100vh;
+}
+.head{
+  width: 100%;
+  height: 10%;
+  padding-left: 45px;
+  padding-right: 45px;
+  display: flex;
+  align-items: center;
+}
+.logo{
+  text-decoration: none;
+  color: var(--dark-blue);
+  font-family: "Rubik Glitch", serif;
+  font-size: 25px;
+  width: 50%;
+  height: fit-content;
+}
+.head ul{
+  display: flex;
+  width: 40%;
+  height: fit-content;
+  justify-content: space-between;
+}
+.head ul li{
+  width: fit-content;
+  font-size: 15px;
+   font-family: "JetBrains Mono", serif;  
+
+}
+.container{
+  width: 100%;
+  height: 90%;
+  background-color: var(--bacground);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.mic {
+  position: relative;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 100px;
+  height: 100px;
+  background-color: #27e5f3;
+  color: #fff;
+  font-size: 33px;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 0.25s;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.mic::before {
+  content: "";
+  position: absolute;
+  width: inherit;
+  height: inherit;
+  border-radius: inherit;
+  background-color: inherit;
+  z-index: -1;
 }
 
-@keyframes logo-spin {
+.listening {
+  background-color: #0da9d9;
+}
+.listening::before {
+  animation: listening 1.3s infinite;
+}
+
+@keyframes listening {
   from {
-    transform: rotate(0deg);
+    opacity: 0.25;
   }
   to {
-    transform: rotate(360deg);
+    transform: scale(2);
+    opacity: 0;
   }
 }
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
+.mic img{
+  width: 41%;
+  height: 41%;
 }
