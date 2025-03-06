@@ -67,8 +67,15 @@ function Widget({ sharedValue, setSharedValue }){
     }
   };
   const updateValue = () => {
-    setSharedValue(transcript);
-  };
+
+    if(transcript == "download" && sharedValue.length != 0){
+      const timer = setTimeout(() => {
+      startListening();
+    }, 2000); // 2000 milliseconds = 2 seconds
+    }else{    
+      setSharedValue(transcript);
+    }
+    };
   return (
     <div className="container">
    <button className={`mic ${isListening ? "listening" : ""}`} type="button" onClick={isListening ? stopListening : startListening}><img src={mic} /></button> 
