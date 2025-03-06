@@ -71,6 +71,7 @@ body{
   border-radius: 50%;
   cursor: pointer;
   transition: background-color 0.25s;
+  overflow: hidden;
 }
 
 .mic::before {
