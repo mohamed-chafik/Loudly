@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import mic from '../assets/mic.png';
 function Widget({ sharedValue, setSharedValue }){
   const [isListening, setIsListening] = useState(false);
-  const [transcript, setTranscript] = useState('');
+  const [transcript, setTranscript] = useState('space');
   const [recognition, setRecognition] = useState(null);
 
   useEffect(() => {

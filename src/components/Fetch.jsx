@@ -28,21 +28,40 @@ function Fetch({ sharedValue }) {
     }
   }, [sharedValue]); // Run whenever `sharedValue` changes
 
-  const speak = () => {
-    console.log("yes")
-    if ("speechSynthesis" in window) {
-      const utterance = new SpeechSynthesisUtterance(news[0].description);
-      utterance.lang = "en-US"; // Set the language
-      utterance.rate = 1; // Speed of speech
-      utterance.pitch = 1; // Pitch of speech
-      window.speechSynthesis.speak(utterance);
-      console.log("ysw")
-    } else {
-      alert("Your browser does not support the Web Speech API.");
-    }
+const speak = () => {
+
+
+  if ('speechSynthesis' in window) {
+    // Check if voices are already loaded
+  let voices = window.speechSynthesis.getVoices(); 
+  if(voices === 0){
+ window.speechSynthesis.onvoiceschanged = () => {
+        voices = window.speechSynthesis.getVoices();
+        if (voices.length > 0) {
+          console.log('Voices loaded:', voices);
+          startSpeaking(voices); // Call the function to start speaking
+        } 
+      };
+  }} else {
+      console.log('Voices already loaded:', voices);
+      startSpeaking(voices); // Call the function to start speaking
+
   };
 
+// Helper function to start speaking
+const startSpeaking = (voices) => {
+  const utterance = new SpeechSynthesisUtterance(news[0].description);
+  utterance.lang = "en-US";
+  utterance.rate = 1;
+  utterance.pitch = 1;
+  utterance.voice = voices.find(voice => voice.lang === "en-US"); // Optionally set a specific voice
+  utterance.onstart = () => console.log('Speech started');
+  utterance.onend = () => console.log('Speech ended');
 
+
+  window.speechSynthesis.speak(utterance);
 };
 
+};
+};
 export default Fetch;
