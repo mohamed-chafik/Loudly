@@ -4,6 +4,8 @@ function Fetch({ sharedValue }) {
   const [news, setNews] = useState([]); // State to store fetched data
   const [loading, setLoading] = useState(true); // State to track loading status
   const [error, setError] = useState(null); // State to handle errors
+  const [voices, setVoices] = useState([]);
+  const [selectedVoice, setSelectedVoice] = useState(null);
   useEffect(() => {
     if (sharedValue) {
       // Replace with your API endpoint
@@ -16,10 +18,12 @@ function Fetch({ sharedValue }) {
           
         })
         .then((data) => {
-          console.log(data); // Log the fetched data
           setNews(data.results); // Assuming the API returns an object with a `results` array
+          console.log(data.results); 
           setLoading(false); // Set loading to false after data is fetched
-          speak(); 
+          speak(data.results[0].title);
+          console.log('speak')
+         
         })
         .catch((error) => {
           setError(error.message); // Set error message if something goes wrong
@@ -28,40 +32,39 @@ function Fetch({ sharedValue }) {
     }
   }, [sharedValue]); // Run whenever `sharedValue` changes
 
-const speak = () => {
 
+ useEffect(() => {
+        const loadVoices = () => {
+            const availableVoices = window.speechSynthesis.getVoices();
+            setVoices(availableVoices);
+            if (availableVoices.length > 0) {
+                setSelectedVoice(availableVoices[0]); // Set default voice
+            }
+        };
 
-  if ('speechSynthesis' in window) {
-    // Check if voices are already loaded
-  let voices = window.speechSynthesis.getVoices(); 
-  if(voices === 0){
- window.speechSynthesis.onvoiceschanged = () => {
-        voices = window.speechSynthesis.getVoices();
-        if (voices.length > 0) {
-          console.log('Voices loaded:', voices);
-          startSpeaking(voices); // Call the function to start speaking
-        } 
-      };
-  }} else {
-      console.log('Voices already loaded:', voices);
-      startSpeaking(voices); // Call the function to start speaking
+        // Load voices initially
+        loadVoices();
 
-  };
+        // Listen for the 'voiceschanged' event
+        window.speechSynthesis.onvoiceschanged = loadVoices;
 
-// Helper function to start speaking
-const startSpeaking = (voices) => {
-  const utterance = new SpeechSynthesisUtterance(news[0].description);
-  utterance.lang = "en-US";
-  utterance.rate = 1;
-  utterance.pitch = 1;
-  utterance.voice = voices.find(voice => voice.lang === "en-US"); // Optionally set a specific voice
-  utterance.onstart = () => console.log('Speech started');
-  utterance.onend = () => console.log('Speech ended');
+        // Cleanup
+        return () => {
+            window.speechSynthesis.onvoiceschanged = null;
+        };
+    }, []);
 
-
-  window.speechSynthesis.speak(utterance);
-};
-
-};
+    const speak = (text) => {
+        if (selectedVoice) {
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.voice = selectedVoice; // Set the selected voice
+            utterance.lang = selectedVoice.lang; // Set the language
+            utterance.rate = 1; // Speed of speech
+            utterance.pitch = 1; // Pitch of speech
+            window.speechSynthesis.speak(utterance);
+        } else {
+            alert('Please select a voice and enter text.');
+        }
+    };
 };
 export default Fetch;
