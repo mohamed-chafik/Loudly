@@ -8,13 +8,12 @@ import Reading from './components/Reading.jsx'
 function App() {
   const [sharedValue, setSharedValue] = useState('');
   const [fetchedData, setFetchedData] = useState('');
-
   return (
     <>
     <Header/>
     <Widget sharedValue={sharedValue} setSharedValue={setSharedValue}/>
     <Fetch sharedValue={sharedValue} fetchedData={fetchedData} setFetchedData={setFetchedData}/>
-    <Reading fetchedData={fetchedData}/>
+    <Reading fetchedData={fetchedData} sharedValue={sharedValue}/>
     </>
   )
 }

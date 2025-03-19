@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import mic from '../assets/mic.png';
 function Widget({ sharedValue, setSharedValue }){
   const [isListening, setIsListening] = useState(false);
-  const [transcript, setTranscript] = useState('space');
+  const [transcript, setTranscript] = useState();
   const [recognition, setRecognition] = useState(null);
 
   useEffect(() => {
@@ -68,14 +68,16 @@ function Widget({ sharedValue, setSharedValue }){
   };
   const updateValue = () => {
 
-    if(transcript == "download" && sharedValue.length != 0){
+    if(transcript === undefined){
       const timer = setTimeout(() => {
-      startListening();
-    }, 2000); // 2000 milliseconds = 2 seconds
-    }else{    
-      setSharedValue(transcript);
+        startListening()
+      }, 2000); // 2000 milliseconds = 2 seconds
+    }else{   
+
+    const trimmedValue = transcript.trim(); // Trim leading and trailing whitespace
+    setSharedValue(trimmedValue); // Update the state with the trimmed value
     }
-    };
+  };
   return (
     <div className="container">
    <button className={`mic ${isListening ? "listening" : ""}`} type="button" onClick={isListening ? stopListening : startListening}><img src={mic} /></button> 
