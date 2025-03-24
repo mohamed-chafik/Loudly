@@ -15,7 +15,7 @@ useEffect(() => {
     return; // Exit early if sharedValue is a command
   }
 
-  if (sharedValue) {
+  else if (sharedValue) {
     setLoading(true); // Set loading to true when starting to fetch
     setError(null); // Reset error state
 
