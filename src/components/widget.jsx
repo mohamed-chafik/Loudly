@@ -15,9 +15,10 @@ function Widget({ sharedValue, setSharedValue }){
 
     // Initialize the recognition object
     const recognition = new SpeechRecognition();
-    recognition.continuous = true;
-    recognition.interimResults = true;
+    recognition.continuous = false;
+    recognition.interimResults = false;
     recognition.lang = 'en-US';
+    recognition.maxAlternatives = 3;
 
     recognition.onstart = () => {
       setIsListening(true);
