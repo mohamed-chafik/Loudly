@@ -10,4 +10,7 @@ server: {
     port: 5173,
     strictPort: true
   }
+build: {
+    chunkSizeWarningLimit: 1000, // Set limit to 1000 kB
+  }
 })
