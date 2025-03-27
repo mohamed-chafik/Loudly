@@ -5,7 +5,7 @@ A **React-based** web app that allows visually impaired users to:
 - **Control playback** (pause, stop, continue) with voice  
 - **Click anywhere to start/stop** voice interaction  
 
-**Live Demo:** [Loudly](loudlly.netlify.app) 
+**Live Demo:** [Loudly](https://loudlly.netlify.app/) 
 
 ---
 
