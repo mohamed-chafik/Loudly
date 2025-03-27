@@ -5,7 +5,7 @@ A **React-based** web app that allows visually impaired users to:
 - **Control playback** (pause, stop, continue) with voice  
 - **Click anywhere to start/stop** voice interaction  
 
-**Live Demo:** [Netlify Link](#) *(Replace with your URL)*  
+**Live Demo:** [Loudly](loudlly.netlify.app) 
 
 ---
 
@@ -13,6 +13,8 @@ A **React-based** web app that allows visually impaired users to:
 🎙 **Voice-Activated Search** – Click the screen, speak a query, and get news.  
 📢 **Voice Commands** – "Stop", "Pause", "Continue" control playback.  
 📰 **Dynamic News Fetching** – Uses NewsAPI to fetch real-time articles.  
+
+
 ---
 
 ## How It Works  
